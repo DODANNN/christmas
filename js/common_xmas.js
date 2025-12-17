@@ -76,16 +76,16 @@ $(document).ready(function(){
         }
         const reader = new FileReader();
         reader.onload = function (e) {
-            const $imgContainer = $(`.chara__img${index}`);
+            const $imgContainer = $(`.result__top .chara__img${index}`);
             let $imgTag = $imgContainer.find('img.preview-img');
             $imgTag.attr('src', e.target.result).show();
 
-            /*$(`.chara__img${index}`).css({
+            $(`.chara__profile .chara__img${index}`).css({
                 'background-image': `url(${e.target.result})`,
                 'background-size': 'cover',
                 'background-position': 'center',
                 'background-repeat': 'no-repeat'
-            }).find('i').remove();*/
+            }).find('i').remove();
         };
         reader.readAsDataURL(file);
         isImageSelected = true; // 이미지 선택 여부는 현재 페이지의 input 기준으로 판단
