@@ -295,8 +295,11 @@ $(document).ready(function(){
     $('#captureBtn').click(function() {
         $('#captureBtn').addClass('dpn');
         const initialScrollY = window.scrollY;
+        const deviceScale = window.devicePixelRatio > 1 ? window.devicePixelRatio : 2;
         const options = {
             element: $targetDiv[0],
+            scale: deviceScale,
+            useCORS: true,
             scrollX: 0,
             scrollY: 0, 
             width: $targetDiv.outerWidth(),
@@ -307,9 +310,9 @@ $(document).ready(function(){
         html2canvas(options.element, options).then(function(canvas) {
             window.scrollTo(0, initialScrollY);
             const ctx = canvas.getContext('2d');
-            if (ctx.imageSmoothingEnabled) {
+            /*if (ctx.imageSmoothingEnabled) {
                 ctx.imageSmoothingEnabled = false;
-            }
+            }*/
             // Firefox 지원
             if (ctx.mozImageSmoothingEnabled) { 
                 ctx.mozImageSmoothingEnabled = false; 
