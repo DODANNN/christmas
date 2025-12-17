@@ -296,6 +296,8 @@ $(document).ready(function(){
     });
 
     const $targetDiv = $('.section__result');
+    const fullWidth = $targetDiv[0].scrollWidth;
+    const fullHeight = $targetDiv[0].scrollHeight;
     $('#captureBtn').click(function() {
         $('#captureBtn').addClass('dpn');
         const initialScrollY = window.scrollY;
@@ -305,11 +307,34 @@ $(document).ready(function(){
             scale: 2,
             useCORS: true,
             allowTaint: true,
+            x: 0,
+            y: 0,
             scrollX: 0,
             scrollY: 0, 
+            width: fullWidth,
+            height: fullHeight,
+            windowWidth: fullWidth,
+            windowHeight: fullHeight,
+            onclone: (clonedDoc) => {
+                const images = clonedDoc.querySelectorAll('.preview-img');
+                images.forEach(img => {
+                    const parent = img.parentElement;
+                    if (parent) {
+                        const correctWidth = parent.offsetWidth;
+                        const correctHeight = parent.offsetHeight;
+                        img.style.width = correctWidth + 'px';
+                        img.style.height = correctHeight + 'px';
+                        img.style.objectFit = 'cover';
+                        img.style.flexShrink = '0';
+                    }
+                });
+            }
+            /*windowWidth: targetWidth,
+            width: targetWidth,
+            height: $targetDiv.outerHeight(),
             width: $targetDiv.outerWidth(),
             height: $targetDiv.outerHeight(),
-            windowWidth: $targetDiv[0].scrollWidth
+            windowWidth: $targetDiv[0].scrollWidth*/
         };
 
         html2canvas(options.element, options).then(function(canvas) {
