@@ -298,8 +298,9 @@ $(document).ready(function(){
         const deviceScale = window.devicePixelRatio > 1 ? window.devicePixelRatio : 2;
         const options = {
             element: $targetDiv[0],
-            scale: deviceScale,
+            scale: 2,
             useCORS: true,
+            allowTaint: true,
             scrollX: 0,
             scrollY: 0, 
             width: $targetDiv.outerWidth(),
@@ -309,16 +310,8 @@ $(document).ready(function(){
 
         html2canvas(options.element, options).then(function(canvas) {
             window.scrollTo(0, initialScrollY);
-            const ctx = canvas.getContext('2d');
-            /*if (ctx.imageSmoothingEnabled) {
-                ctx.imageSmoothingEnabled = false;
-            }*/
-            // Firefox 지원
-            if (ctx.mozImageSmoothingEnabled) { 
-                ctx.mozImageSmoothingEnabled = false; 
-            }
-            const imageDataURL = canvas.toDataURL('image/png');
-            downloadImage(imageDataURL, 'captured_image.png');
+            const imageDataURL = canvas.toDataURL('image/png', 1.0);
+            downloadImage(imageDataURL, 'xmas_image.png');
         }).catch(function(error) {
              console.error('HTML2CANVAS 캡처 오류:', error);
              alert('이미지 저장에 실패했습니다.');
