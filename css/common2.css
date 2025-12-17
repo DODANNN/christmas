@@ -1,0 +1,363 @@
+@charset "UTF-8";
+/* 변수 */
+:root {
+  --vh: 1vh;
+  --vw: 1vw;
+}
+
+/* 공통 */
+.b {
+  font-weight: bold;
+}
+
+html, body {
+  width: 100%;
+  min-height: calc(var(--vh, 1vh) * 100);
+  background-color: #ddd;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.mr4 {
+  margin-right: 4px;
+}
+
+.mr8 {
+  margin-right: 8px;
+}
+
+.mr16 {
+  margin-right: 16px;
+}
+
+.mr24 {
+  margin-right: 24px;
+}
+
+.dpn {
+  display: none !important;
+}
+
+.btn, .btn__next, .btn__start {
+  border: 0 none;
+  font-size: 1.2rem;
+  line-height: 3;
+  font-weight: bold;
+}
+.btn.on, .on.btn__next, .on.btn__start {
+  cursor: pointer;
+}
+
+/* mixin */
+@-webkit-keyframes colorChange {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes colorChange {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes colorChange {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* 콘텐츠 */
+.content {
+  max-width: 480px;
+  height: 100%;
+  background-color: #fff;
+  margin: 0 auto;
+}
+.content .section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 100%;
+  position: relative;
+}
+.content .section .hint {
+  font-size: 1.3rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+.content .section__set {
+  justify-content: space-between;
+}
+.content .section__result {
+  background-color: #b13535;
+  height: auto;
+  max-width: 480px;
+  width: 100%;
+}
+.content .section__result .section__content {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+}
+.content.result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  min-height: 100%;
+  height: auto;
+}
+
+.section__index {
+  background: linear-gradient(-45deg, #ffffff, #f94947, #ffffff);
+  background-size: 200% 200%;
+  gap: 32px;
+  -webkit-animation: colorChange 3s infinite;
+  animation: colorChange 3s infinite;
+}
+.section__index .title {
+  text-align: center;
+  font-family: "KakaoSmallSans-Bold";
+  font-size: 2rem;
+  line-height: 1.3;
+}
+.section__index .title p {
+  color: #fff;
+}
+
+.section__set {
+  gap: 32px;
+}
+.section__set .chara__profile {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-direction: column;
+  width: 100%;
+}
+.section__set .chara__info {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: 32px;
+}
+.section__set .chara__info > div {
+  display: flex;
+  align-items: center;
+}
+.section__set .chara__img {
+  width: 150px;
+  height: 150px;
+  background-color: #cfcece;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+}
+.section__set .chara__img i {
+  font-size: 3rem;
+  color: #fff;
+}
+.section__set .chara__img::after {
+  content: "\f030";
+  display: block;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #afafaf;
+  border: 2px solid #ffffff;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 9999px;
+}
+.section__set .info__hint {
+  font-size: 1.3rem;
+  font-family: "NanumSquareRound";
+  display: inline-block;
+  vertical-align: middle;
+  flex: 0 0 100px;
+}
+.section__set .chara__name {
+  border-bottom: 2px solid black;
+  outline: none;
+  line-height: 1.5;
+  font-size: 1.1rem;
+  font-family: "NanumSquareRound";
+  width: 100%;
+}
+
+.section__qna .qna_div {
+  width: 90%;
+}
+.section__qna .qna_div .question {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.section__qna .answer > div:nth-child(2) {
+  margin-top: 16px;
+}
+.section__qna .answer__area {
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 14px;
+  padding: 8px;
+}
+
+.section__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  gap: 24px;
+  width: 100%;
+}
+
+.btn__start {
+  border-radius: 9999px;
+  width: 50%;
+  max-width: 220px;
+  background: #2e9d6a;
+  color: #fff;
+}
+
+.btn__next {
+  width: 100%;
+  border-radius: 14px;
+  background-color: #ddd;
+  color: #fff;
+  font-family: "NanumSquareRound";
+}
+.btn__next.on {
+  background-color: #2e9d6a;
+}
+
+[data-characolor]::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--bg-color, gray);
+}
+
+.chara__answer {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  font-family: "NanumSquareRound";
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.section__result .result__title {
+  font-style: italic;
+  font-size: 1.4rem;
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.section__result .chara__name {
+  color: var(--text-color, gray);
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+
+.result__top {
+  display: flex;
+  gap: 16px;
+}
+.result__top > div {
+  text-align: center;
+}
+.result__top > div p {
+  padding-top: 10px;
+}
+.result__top .chara__img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.result__qna__container {
+  width: 100%;
+  margin-top: 20px;
+}
+.result__qna__container .result__qna__item {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 1px solid #bdbdbd;
+}
+.result__qna__container .result__qna__item + .result__qna__item {
+  margin-top: 12px;
+}
+.result__qna__container .result__question {
+  font-size: 0.85rem;
+  font-weight: bold;
+  background-color: #e9e9e9;
+  padding: 4px;
+  border-bottom: 1px dashed #cfcfcf;
+  font-family: "NanumSquareRound";
+}
+.result__qna__container .result__answers {
+  font-size: 0.8rem;
+  font-family: "NanumSquareRound";
+}
+.result__qna__container .result__answers > div {
+  padding: 8px 4px;
+}
+.result__qna__container .result__answers > div.result__answer-A {
+  border-bottom: 1px dashed #cfcfcf;
+}
+.result__qna__container .result__answers > div + div {
+  margin-top: 4px;
+}
+.result__qna__container .result__answers .chara__text {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+#captureBtn {
+  background-color: #2e9d6a;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  box-shadow: 0 0 4px 2px #fff;
+}
+
+/*# sourceMappingURL=common2.css.map */

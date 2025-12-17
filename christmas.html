@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>해피 크리스마스</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    
+    <link rel="stylesheet" href="css/common2.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="js/common_xmas.js"></script>
+</head>
+<body>
+    <div class="content">
+        <section class="section section__index">
+            <div class="title">
+                <p>산타 마니또</p>
+            </div>
+            <button type="button" class="btn btn__start on"><span class="mr8">시작하기</span><i class="fa-solid fa-arrow-right"></i></button>
+        </section>
+        <section class="section section__set set__chara set__chara1 dpn">
+            <div class="section__content">
+                <p class="hint">A의 정보를 입력해 주세요</p>
+                <div class="chara__profile">
+                    <div class="chara__img chara__img1"><i class="fa-solid fa-user"></i></div>
+                    <input type="file" name="chara__img__input" class="chara__img__input chara__img__input1 dpn" accept="image/*">
+                    <div class="chara__info">
+                        <div>
+                            <p class="info__hint">이름</p>
+                            <input type="text" name="chara__name" class="chara__name chara__name1" placeholder="이름" autocomplete="off">
+                        </div>
+                        <div>
+                            <p class="info__hint">대표 컬러</p>
+                            <div class="color-picker"></div>
+                            <input type="hidden" id="hiddenColor1" name="hiddenColor1" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn__next" data-connectsection=".set__chara2"><span>다음</span></button>
+        </section>
+        <section class="section section__set set__chara set__chara2 dpn">
+            <div class="section__content">
+                <p class="hint">B의 정보를 입력해 주세요</p>
+                <div class="chara__profile">
+                    <div class="chara__img chara__img2"><i class="fa-solid fa-user"></i></div>
+                    <input type="file" name="chara__img__input" class="chara__img__input chara__img__input2 dpn" accept="image/*">
+                    <div class="chara__info">
+                        <div>
+                            <p class="info__hint">이름</p>
+                            <input type="text" name="chara__name" class="chara__name chara__name2" placeholder="이름" autocomplete="off">
+                        </div>
+                        <div>
+                            <p class="info__hint">대표 컬러</p>
+                            <div class="color-picker2"></div>
+                            <input type="hidden" id="hiddenColor2" name="hiddenColor2" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn__next" data-connectsection=".section__qna"><span>다음</span></button>
+        </section>
+
+        <section class="section section__qna dpn">
+            <div class="section__content">
+                <div class="qna_div on">
+                    <div class="question">
+                        <p class="hint">질문이 로드됩니다.</p> 
+                    </div>
+                    <div class="answer">
+                        <div class="answer-A"> 
+                            <div>
+                                <p data-charaname2="A" data-characolor="A" class="chara__answer">A</p>
+                            </div>
+                            <div>
+                                <textarea name="answer__area" class="answer__area answer__areaA" data-answer="A" rows="6" placeholder="A의 답변을 적어주세요"></textarea>
+                            </div>
+                        </div>
+                        <div class="answer-B"> 
+                            <div>
+                                <p data-charaname2="B" data-characolor="B" class="chara__answer">B</p>
+                            </div>
+                            <div>
+                                <textarea name="answer__area" class="answer__area answer__areaB" data-answer="B" rows="6" placeholder="B의 답변을 적어주세요"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <button type="button" class="btn btn__next btn__progress"><span>다음</span></button>
+        </section>
+
+        <section class="section section__result dpn">
+            <div class="section__content">
+                <i class="fa-solid fa-file-arrow-down" id="captureBtn" style="color: #ffffff;"></i>
+                <div><p class="result__title">Merry X-MAS with your Secret Santa</p></div>
+                <div class="result__top">
+                    <div class="result__top__charaA">
+                        <div class="chara__img chara__img1"></div>
+                        <p data-charaname2="A">A</p>
+                    </div>
+                    <div class="result__top__charaB">
+                        <div class="chara__img chara__img2"></div>
+                        <p data-charaname2="B">B</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+</html>
