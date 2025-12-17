@@ -305,6 +305,7 @@ html, body {
   height: 100px;
   border-radius: 50%;
   border: 1px solid #ddd;
+  overflow: hidden;
 }
 
 .result__qna__container {
