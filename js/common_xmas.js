@@ -3,7 +3,7 @@ const QNA_LIST = [
     "{name1}{josa1_과와} {name2}{josa2_이가} 쪽지에 적은 소원",
     "{name1}{josa1_과와} {name2}{josa2_이가} 마니또로서 준비한 선물", 
     "선물을 받은 {name1}와 {name2}의 반응",
-    "둘이서 힘께 보내는 크리스마스는···"
+    "둘이서 함께 보낸 크리스마스는···"
 ];
 
 function getKoreanPostposition(name, withBatchim, withoutBatchim) {
