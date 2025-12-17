@@ -76,16 +76,16 @@ $(document).ready(function(){
         }
         const reader = new FileReader();
         reader.onload = function (e) {
-            const $imgContainer = $(`.result__top .chara__img${index}`);
+            const $imgContainer = $(`.chara__img${index}`);
             let $imgTag = $imgContainer.find('img.preview-img');
             $imgTag.attr('src', e.target.result).show();
 
-            $(`.chara__profile .chara__img${index}`).css({
+            /*$(`.chara__img${index}`).css({
                 'background-image': `url(${e.target.result})`,
                 'background-size': 'cover',
                 'background-position': 'center',
                 'background-repeat': 'no-repeat'
-            }).find('i').remove();
+            }).find('i').remove();*/
         };
         reader.readAsDataURL(file);
         isImageSelected = true; // 이미지 선택 여부는 현재 페이지의 input 기준으로 판단
@@ -296,8 +296,6 @@ $(document).ready(function(){
     });
 
     const $targetDiv = $('.section__result');
-    const fullWidth = $targetDiv[0].scrollWidth;
-    const fullHeight = $targetDiv[0].scrollHeight;
     $('#captureBtn').click(function() {
         $('#captureBtn').addClass('dpn');
         const initialScrollY = window.scrollY;
@@ -307,34 +305,11 @@ $(document).ready(function(){
             scale: 2,
             useCORS: true,
             allowTaint: true,
-            x: 0,
-            y: 0,
             scrollX: 0,
             scrollY: 0, 
-            width: fullWidth,
-            height: fullHeight,
-            windowWidth: fullWidth,
-            windowHeight: fullHeight,
-            onclone: (clonedDoc) => {
-                const images = clonedDoc.querySelectorAll('.preview-img');
-                images.forEach(img => {
-                    const parent = img.parentElement;
-                    if (parent) {
-                        const correctWidth = parent.offsetWidth;
-                        const correctHeight = parent.offsetHeight;
-                        img.style.width = correctWidth + 'px';
-                        img.style.height = correctHeight + 'px';
-                        img.style.objectFit = 'cover';
-                        img.style.flexShrink = '0';
-                    }
-                });
-            }
-            /*windowWidth: targetWidth,
-            width: targetWidth,
-            height: $targetDiv.outerHeight(),
             width: $targetDiv.outerWidth(),
             height: $targetDiv.outerHeight(),
-            windowWidth: $targetDiv[0].scrollWidth*/
+            windowWidth: $targetDiv[0].scrollWidth
         };
 
         html2canvas(options.element, options).then(function(canvas) {
