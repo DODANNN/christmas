@@ -8,7 +8,7 @@ const QNA_LIST = [
 
 function getKoreanPostposition(name, withBatchim, withoutBatchim) {
     if (!name || name.length === 0) {
-        return withoutBatchim; // 이름이 없으면 받침 없는 것으로 간주
+        return withoutBatchim; // 이름이 없으면 받침 없는 것으로 간주 
     }
     
     // 마지막 글자 추출
