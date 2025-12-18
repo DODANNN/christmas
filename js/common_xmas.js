@@ -295,31 +295,36 @@ $(document).ready(function(){
         $('.set__chara2').find('.chara__name').trigger('input'); // 색상 선택 후 다시 활성화 체크
     });
 
-    const $targetDiv = $('.section__result');
-    $('#captureBtn').click(function() {
-        $('#captureBtn').addClass('dpn');
+    $('#captureBtn').off('click').on('click', function() {
+        const $targetDiv = $('.section__result');
+        $('#captureBtn').hide(); 
+
+        // 화면 스크롤 보정
         const initialScrollY = window.scrollY;
-        const deviceScale = window.devicePixelRatio > 1 ? window.devicePixelRatio : 2;
-        const options = {
-            element: $targetDiv[0],
+        window.scrollTo(0, 0);
+
+        html2canvas($targetDiv[0], {
             scale: 2,
             useCORS: true,
             allowTaint: true,
-            scrollX: 0,
-            scrollY: 0, 
-            width: $targetDiv.outerWidth(),
-            height: $targetDiv.outerHeight(),
-            windowWidth: $targetDiv[0].scrollWidth
-        };
+            backgroundColor: "#b13535", // 배경색 유지
+        }).then(function(canvas) {
+            const imageDataURL = canvas.toDataURL('image/png');
 
-        html2canvas(options.element, options).then(function(canvas) {
+            // [핵심 변경 사항] 바로 다운로드하지 않고 팝업에 노출
+            $('#finalResultImg').attr('src', imageDataURL);
+            $('#imagePopup').removeClass('dpn').css('display', 'flex');
+
             window.scrollTo(0, initialScrollY);
-            const imageDataURL = canvas.toDataURL('image/png', 1.0);
-            downloadImage(imageDataURL, 'xmas_image.png');
+            $('#captureBtn').show();
         }).catch(function(error) {
-             console.error('HTML2CANVAS 캡처 오류:', error);
-             alert('이미지 저장에 실패했습니다.');
+            console.error('캡처 오류:', error);
+            $('#captureBtn').show();
         });
+    });
+
+    $('#closePopup').click(function() {
+        $('#imagePopup').addClass('dpn').hide();
     });
 });
 

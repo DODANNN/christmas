@@ -111,6 +111,11 @@
             </div>
         </section>
     </div>
+    <div id="imagePopup" class="dpn" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px;">
+        <p style="color:#fff; margin-bottom:10px; font-size:14px;">이미지를 꾹 눌러서(우클릭) 저장하세요!</p>
+        <img id="finalResultImg" src="" style="max-width:100%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.5);">
+        <button type="button" id="closePopup" style="margin-top:20px; padding:10px 20px; background:#fff; border:none; border-radius:5px; cursor:pointer;">닫기</button>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
 </html>
