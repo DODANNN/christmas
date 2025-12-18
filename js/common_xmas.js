@@ -295,11 +295,24 @@ $(document).ready(function(){
         $('.set__chara2').find('.chara__name').trigger('input'); // 색상 선택 후 다시 활성화 체크
     });
 
-    $('#captureBtn').off('click').on('click', function() {
-        const $targetDiv = $('.section__result');
-        $('#captureBtn').hide(); 
+$('#captureBtn').off('click').on('click', function() {
+    const $targetDiv = $('.section__result');
+    const $imgs = $targetDiv.find('img'); // 결과창 안의 이미지들
 
-        // 화면 스크롤 보정
+    $('#captureBtn').hide();
+
+    // [핵심] 캡처 직전에 이미지의 크기를 픽셀(px)로 고정
+        $imgs.each(function() {
+            const $this = $(this);
+            $this.css({
+                'width': '100px',
+                'height': '100px',
+                'object-fit': 'cover', // 다시 한번 명시
+                'min-width': '100px',
+                'max-width': '100px'
+            });
+        });
+
         const initialScrollY = window.scrollY;
         window.scrollTo(0, 0);
 
@@ -307,27 +320,20 @@ $(document).ready(function(){
             scale: 2,
             useCORS: true,
             allowTaint: true,
-            logging: true, 
+            // [넙데데 방지 핵심]
             width: $targetDiv.outerWidth(),
-            windowWidth: $targetDiv.outerWidth(),
-            onclone: function(clonedDoc) {
-                $(clonedDoc).find('.preview-img').css({
-                    'width': '100px',
-                    'height': '100px',
-                    'object-fit': 'cover'
-                });
-            }
+            windowWidth: $targetDiv.outerWidth(), 
+            logging: false
         }).then(function(canvas) {
+            // 팝업 로직
             const imageDataURL = canvas.toDataURL('image/png');
-
-            // [핵심 변경 사항] 바로 다운로드하지 않고 팝업에 노출
             $('#finalResultImg').attr('src', imageDataURL);
             $('#imagePopup').removeClass('dpn').css('display', 'flex');
 
+            // 스타일 복구 (이미지 크기 원복 필요시)
+            $imgs.css({ 'width': '', 'height': '', 'min-width': '', 'max-width': '' });
+            
             window.scrollTo(0, initialScrollY);
-            $('#captureBtn').show();
-        }).catch(function(error) {
-            console.error('캡처 오류:', error);
             $('#captureBtn').show();
         });
     });

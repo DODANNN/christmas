@@ -309,21 +309,19 @@ html, body {
 }*/
 
 .result__top .chara__img {
-  width: 100px !important;
-  height: 100px !important;
-  min-width: 100px;
-  min-height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative; /* 위치 고정 */
+    width: 100px !important;
+    height: 100px !important;
+    overflow: hidden !important;
+    display: block !important;
+    border-radius: 50%;
 }
 
 .result__top .chara__img img {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-  object-fit: cover; /* 여기서 왜곡이 생기면 object-position을 추가 */
-  object-position: center;
+    /* 이미지가 튀어나가거나 비율이 깨지는 것을 방지 */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
 }
 
 .result__qna__container {
