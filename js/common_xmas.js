@@ -295,45 +295,50 @@ $(document).ready(function(){
         $('.set__chara2').find('.chara__name').trigger('input'); // 색상 선택 후 다시 활성화 체크
     });
 
-    const $targetDiv = $('.section__result');
-    $('#captureBtn').click(function() {
-        $('#captureBtn').addClass('dpn');
-        const originalWidth = $targetDiv.width();
+    $('#captureBtn').off('click').on('click', function() {
+        const $targetDiv = $('.section__result');
+        $('#captureBtn').hide(); // 버튼 숨기기
+    
+        // 1. 현재 요소의 실제 픽셀 너비를 구합니다.
+        const actualWidth = $targetDiv[0].offsetWidth;
         const originalStyle = $targetDiv.attr('style') || "";
+    
+        // 2. 가로 늘어남 방지를 위해 픽셀 단위로 강제 고정
         $targetDiv.css({
-            'width': originalWidth + 'px',
-            'min-width': originalWidth + 'px',
-            'max-width': originalWidth + 'px',
+            'width': actualWidth + 'px',
+            'min-width': actualWidth + 'px',
+            'max-width': actualWidth + 'px',
             'overflow': 'visible'
         });
+    
         const initialScrollY = window.scrollY;
         window.scrollTo(0, 0);
-        const options = {
-            element: $targetDiv[0],
-            scale: 2,
+    
+        // 3. html2canvas 옵션 최적화
+        html2canvas($targetDiv[0], {
+            scale: 2, // 고해상도
             useCORS: true,
             allowTaint: true,
-            scrollX: 0,
-            scrollY: 0, 
-            width: originalWidth,
+            backgroundColor: "#b13535", // 배경색 강제 지정
+            width: actualWidth,
             height: $targetDiv[0].scrollHeight,
-            windowWidth: originalWidth,
+            windowWidth: actualWidth, // 👈 뷰포트 너비를 실제 요소 너비로 고정 (늘어남 방지 핵심)
             scrollX: 0,
             scrollY: 0,
             x: 0,
             y: 0,
             logging: false
-        };
-
-        html2canvas(options.element, options).then(function(canvas) {
-            $targetDiv.attr('style', originalStyle);
+        }).then(function(canvas) {
+            $targetDiv.attr('style', originalStyle); // 스타일 원복
             window.scrollTo(0, initialScrollY);
+            
             const imageDataURL = canvas.toDataURL('image/png', 1.0);
             downloadImage(imageDataURL, 'xmas_image.png');
+            $('#captureBtn').show();
         }).catch(function(error) {
-             console.error('HTML2CANVAS 캡처 오류:', error);
-             alert('이미지 저장에 실패했습니다.');
-            $('#captureBtn').removeClass('dpn');
+            $targetDiv.attr('style', originalStyle);
+            console.error('캡처 오류:', error);
+            $('#captureBtn').show();
         });
     });
 });
