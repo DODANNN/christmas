@@ -301,11 +301,19 @@ html, body {
   padding-top: 10px;
 }
 .result__top .chara__img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  overflow: hidden;
+    width: 100px !important;   /* %가 아닌 px로 강제 고정 */
+    height: 100px !important;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    position: relative;        /* 위치 추적을 위해 추가 */
+}
+
+.result__top .chara__img img.preview-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* 이미지 비율 유지의 핵심 */
+    display: block;
 }
 
 .result__qna__container {

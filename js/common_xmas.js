@@ -301,15 +301,31 @@ $(document).ready(function(){
         const initialScrollY = window.scrollY;
         const deviceScale = window.devicePixelRatio > 1 ? window.devicePixelRatio : 2;
         const options = {
-            element: $targetDiv[0],
             scale: 2,
             useCORS: true,
             allowTaint: true,
-            scrollX: 0,
-            scrollY: 0, 
+            backgroundColor: "#b13535",
             width: $targetDiv.outerWidth(),
-            height: $targetDiv.outerHeight(),
-            windowWidth: $targetDiv[0].scrollWidth
+            windowWidth: $targetDiv.outerWidth(),
+            height: $targetDiv[0].scrollHeight,
+            
+            // [넙데데 오류 최종 해결책]
+            onclone: function(clonedDoc) {
+                // 복제된 문서 내부의 Base64 이미지들을 찾아 비율을 강제로 고정
+                const $clonedImgs = $(clonedDoc).find('.preview-img');
+                $clonedImgs.each(function() {
+                    $(this).css({
+                        'width': '100px',
+                        'height': '100px',
+                        'object-fit': 'cover',
+                        'min-width': '100px',
+                        'max-width': '100px'
+                    });
+                });
+                
+                // 버튼이 복제본에 남아있다면 여기서도 확실히 숨김
+                $(clonedDoc).find('#captureBtn').hide();
+            }
         };
 
         html2canvas(options.element, options).then(function(canvas) {
