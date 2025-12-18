@@ -307,12 +307,16 @@ $(document).ready(function(){
             scale: 2,
             useCORS: true,
             allowTaint: true,
+            logging: true, 
             width: $targetDiv.outerWidth(),
             windowWidth: $targetDiv.outerWidth(),
-            scrollX: 0,
-            scrollY: 0,
-            x: 0,
-            y: 0
+            onclone: function(clonedDoc) {
+                $(clonedDoc).find('.preview-img').css({
+                    'width': '100px',
+                    'height': '100px',
+                    'object-fit': 'cover'
+                });
+            }
         }).then(function(canvas) {
             const imageDataURL = canvas.toDataURL('image/png');
 
