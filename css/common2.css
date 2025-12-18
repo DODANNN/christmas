@@ -300,28 +300,12 @@ html, body {
 .result__top > div p {
   padding-top: 10px;
 }
-/*.result__top .chara__img {
+.result__top .chara__img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: 1px solid #ddd;
   overflow: hidden;
-}*/
-
-.result__top .chara__img {
-    width: 100px !important;
-    height: 100px !important;
-    overflow: hidden !important;
-    display: block !important;
-    border-radius: 50%;
-}
-
-.result__top .chara__img img {
-    /* 이미지가 튀어나가거나 비율이 깨지는 것을 방지 */
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
 }
 
 .result__qna__container {
