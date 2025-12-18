@@ -300,12 +300,30 @@ html, body {
 .result__top > div p {
   padding-top: 10px;
 }
-.result__top .chara__img {
+/*.result__top .chara__img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: 1px solid #ddd;
   overflow: hidden;
+}*/
+
+.result__top .chara__img {
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative; /* 위치 고정 */
+}
+
+.result__top .chara__img img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  object-fit: cover; /* 여기서 왜곡이 생기면 object-position을 추가 */
+  object-position: center;
 }
 
 .result__qna__container {
