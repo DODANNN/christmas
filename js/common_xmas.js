@@ -307,7 +307,12 @@ $(document).ready(function(){
             scale: 2,
             useCORS: true,
             allowTaint: true,
-            backgroundColor: "#b13535", // 배경색 유지
+            width: $targetDiv.outerWidth(),
+            windowWidth: $targetDiv.outerWidth(),
+            scrollX: 0,
+            scrollY: 0,
+            x: 0,
+            y: 0
         }).then(function(canvas) {
             const imageDataURL = canvas.toDataURL('image/png');
 
