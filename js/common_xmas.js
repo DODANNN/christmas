@@ -297,46 +297,50 @@ $(document).ready(function(){
 
 $('#captureBtn').off('click').on('click', function() {
     const $targetDiv = $('.section__result');
-    const $imgs = $targetDiv.find('img'); // 결과창 안의 이미지들
-
+    const $base64Imgs = $targetDiv.find('.preview-img'); // Base64 이미지가 들어있는 img 태그
+    
     $('#captureBtn').hide();
 
-    // [핵심] 캡처 직전에 이미지의 크기를 픽셀(px)로 고정
-        $imgs.each(function() {
-            const $this = $(this);
-            $this.css({
-                'width': '100px',
-                'height': '100px',
-                'object-fit': 'cover', // 다시 한번 명시
-                'min-width': '100px',
-                'max-width': '100px'
-            });
-        });
-
-        const initialScrollY = window.scrollY;
-        window.scrollTo(0, 0);
-
-        html2canvas($targetDiv[0], {
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            // [넙데데 방지 핵심]
-            width: $targetDiv.outerWidth(),
-            windowWidth: $targetDiv.outerWidth(), 
-            logging: false
-        }).then(function(canvas) {
-            // 팝업 로직
-            const imageDataURL = canvas.toDataURL('image/png');
-            $('#finalResultImg').attr('src', imageDataURL);
-            $('#imagePopup').removeClass('dpn').css('display', 'flex');
-
-            // 스타일 복구 (이미지 크기 원복 필요시)
-            $imgs.css({ 'width': '', 'height': '', 'min-width': '', 'max-width': '' });
-            
-            window.scrollTo(0, initialScrollY);
-            $('#captureBtn').show();
+    // [핵심] 캡처 직전에 이미지 태그의 '속성' 자체를 숫자로 고정
+    $base64Imgs.each(function() {
+        // 화면에 실제 보이는 크기가 100x100이라면
+        this.setAttribute('width', '100');
+        this.setAttribute('height', '100');
+        
+        // CSS도 픽셀로 강제 고정
+        $(this).css({
+            'width': '100px !important',
+            'height': '100px !important',
+            'object-fit': 'cover',
+            'min-width': '100px',
+            'max-width': '100px'
         });
     });
+
+    const initialScrollY = window.scrollY;
+    window.scrollTo(0, 0);
+
+    html2canvas($targetDiv[0], {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        // 이 두 줄이 없으면 캔버스가 다시 넙데데한 기본 너비로 돌아갑니다
+        width: $targetDiv.outerWidth(),
+        windowWidth: $targetDiv.outerWidth(),
+        logging: false
+    }).then(function(canvas) {
+        const imageDataURL = canvas.toDataURL('image/png');
+        $('#finalResultImg').attr('src', imageDataURL);
+        $('#imagePopup').removeClass('dpn').css('display', 'flex');
+
+        // 캡처 후 스타일 복구 (원래대로 돌려놓기)
+        $base64Imgs.removeAttr('width').removeAttr('height');
+        $base64Imgs.css({ 'width': '', 'height': '', 'min-width': '', 'max-width': '' });
+        
+        window.scrollTo(0, initialScrollY);
+        $('#captureBtn').show();
+    });
+});
 
     $('#closePopup').click(function() {
         $('#imagePopup').addClass('dpn').hide();
