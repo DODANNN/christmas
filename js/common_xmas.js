@@ -298,10 +298,16 @@ $(document).ready(function(){
     const $targetDiv = $('.section__result');
     $('#captureBtn').click(function() {
         $('#captureBtn').addClass('dpn');
+        const originalWidth = $targetDiv.width();
+        const originalStyle = $targetDiv.attr('style') || "";
+        $targetDiv.css({
+            'width': originalWidth + 'px',
+            'min-width': originalWidth + 'px',
+            'max-width': originalWidth + 'px',
+            'overflow': 'visible'
+        });
         const initialScrollY = window.scrollY;
         window.scrollTo(0, 0);
-        const actualWidth = $targetDiv[0].offsetWidth;
-        const actualHeight = $targetDiv[0].scrollHeight;
         const options = {
             element: $targetDiv[0],
             scale: 2,
@@ -309,17 +315,18 @@ $(document).ready(function(){
             allowTaint: true,
             scrollX: 0,
             scrollY: 0, 
-            width: actualWidth,
-            height: actualHeight,
-            windowWidth: actualWidth,
-            windowHeight: actualHeight,
+            width: originalWidth,
+            height: $targetDiv[0].scrollHeight,
+            windowWidth: originalWidth,
             scrollX: 0,
             scrollY: 0,
             x: 0,
-            y: 0
+            y: 0,
+            logging: false
         };
 
         html2canvas(options.element, options).then(function(canvas) {
+            $targetDiv.attr('style', originalStyle);
             window.scrollTo(0, initialScrollY);
             const imageDataURL = canvas.toDataURL('image/png', 1.0);
             downloadImage(imageDataURL, 'xmas_image.png');
@@ -327,7 +334,6 @@ $(document).ready(function(){
              console.error('HTML2CANVAS 캡처 오류:', error);
              alert('이미지 저장에 실패했습니다.');
             $('#captureBtn').removeClass('dpn');
-             window.scrollTo(0, initialScrollY);
         });
     });
 });
