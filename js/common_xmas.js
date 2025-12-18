@@ -299,7 +299,9 @@ $(document).ready(function(){
     $('#captureBtn').click(function() {
         $('#captureBtn').addClass('dpn');
         const initialScrollY = window.scrollY;
-        const deviceScale = window.devicePixelRatio > 1 ? window.devicePixelRatio : 2;
+        window.scrollTo(0, 0);
+        const actualWidth = $targetDiv[0].offsetWidth;
+        const actualHeight = $targetDiv[0].scrollHeight;
         const options = {
             element: $targetDiv[0],
             scale: 2,
@@ -307,9 +309,14 @@ $(document).ready(function(){
             allowTaint: true,
             scrollX: 0,
             scrollY: 0, 
-            width: $targetDiv.outerWidth(),
-            height: $targetDiv.outerHeight(),
-            windowWidth: $targetDiv[0].scrollWidth
+            width: actualWidth,
+            height: actualHeight,
+            windowWidth: actualWidth,
+            windowHeight: actualHeight,
+            scrollX: 0,
+            scrollY: 0,
+            x: 0,
+            y: 0
         };
 
         html2canvas(options.element, options).then(function(canvas) {
@@ -319,6 +326,8 @@ $(document).ready(function(){
         }).catch(function(error) {
              console.error('HTML2CANVAS 캡처 오류:', error);
              alert('이미지 저장에 실패했습니다.');
+            $('#captureBtn').removeClass('dpn');
+             window.scrollTo(0, initialScrollY);
         });
     });
 });
